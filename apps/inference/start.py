@@ -64,7 +64,7 @@ def parse_args():
     parser.add_argument(
         "--token_limit",
         type=int,
-        default=200,
+        default=int(1e6),
         help="Maximum number of tokens to process",
     )
     parser.add_argument(

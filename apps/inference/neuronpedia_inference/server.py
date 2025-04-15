@@ -13,34 +13,30 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from transformer_lens import HookedTransformer
-from transformers import AutoModelForCausalLM, AutoTokenizer
-
-from neuronpedia_inference.args import list_available_options, parse_env_and_args
-from neuronpedia_inference.config import Config, get_saelens_neuronpedia_directory_df
-from neuronpedia_inference.endpoints.activation.all import (
-    router as activation_all_router,
-)
-from neuronpedia_inference.endpoints.activation.single import (
-    router as activation_single_router,
-)
-from neuronpedia_inference.endpoints.activation.topk_by_token import (
-    router as activation_topk_by_token_router,
-)
-from neuronpedia_inference.endpoints.steer.completion import (
-    router as steer_completion_router,
-)
-from neuronpedia_inference.endpoints.steer.completion_chat import (
-    router as steer_completion_chat_router,
-)
-from neuronpedia_inference.endpoints.util.sae_topk_by_decoder_cossim import (
-    router as sae_topk_by_decoder_cossim_router,
-)
-from neuronpedia_inference.endpoints.util.sae_vector import router as sae_vector_router
+from neuronpedia_inference.args import (list_available_options,
+                                        parse_env_and_args)
+from neuronpedia_inference.config import (Config,
+                                          get_saelens_neuronpedia_directory_df)
+from neuronpedia_inference.endpoints.activation.all import \
+    router as activation_all_router
+from neuronpedia_inference.endpoints.activation.single import \
+    router as activation_single_router
+from neuronpedia_inference.endpoints.activation.topk_by_token import \
+    router as activation_topk_by_token_router
+from neuronpedia_inference.endpoints.steer.completion import \
+    router as steer_completion_router
+from neuronpedia_inference.endpoints.steer.completion_chat import \
+    router as steer_completion_chat_router
+from neuronpedia_inference.endpoints.util.sae_topk_by_decoder_cossim import \
+    router as sae_topk_by_decoder_cossim_router
+from neuronpedia_inference.endpoints.util.sae_vector import \
+    router as sae_vector_router
 from neuronpedia_inference.logging import initialize_logging
 from neuronpedia_inference.sae_manager import SAEManager  # noqa: F401
 from neuronpedia_inference.shared import STR_TO_DTYPE, Model  # noqa: F401
 from neuronpedia_inference.utils import checkCudaError
+from transformer_lens import HookedTransformer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Initialize logging at module level
 initialize_logging()
@@ -159,7 +155,7 @@ async def initialize(
         Config._instance = config
 
         logger.info("Loading model...")
-
+        
         hf_model = None
         hf_tokenizer = None
         if custom_hf_model_id is not None:
@@ -167,6 +163,7 @@ async def initialize(
             hf_model = AutoModelForCausalLM.from_pretrained(
                 custom_hf_model_id,
                 torch_dtype=STR_TO_DTYPE[config.MODEL_DTYPE],
+                token=os.getenv('HF_TOKEN')
             )
             hf_tokenizer = AutoTokenizer.from_pretrained(custom_hf_model_id)
 

@@ -11,7 +11,7 @@ configMapGenerator:
       - DEVICE=cuda
       - MODEL_DTYPE=bfloat16
       - SAE_DTYPE=float16
-      - TOKEN_LIMIT=400
+      - TOKEN_LIMIT=400000
       - HOST=0.0.0.0
       - PORT=5002
       - MAX_LOADED_SAES=500

@@ -4,9 +4,8 @@ import re
 from typing import Any
 
 import pandas as pd
-from sae_lens.toolkit.pretrained_saes_directory import (
-    get_pretrained_saes_directory,
-)
+from sae_lens.toolkit.pretrained_saes_directory import \
+    get_pretrained_saes_directory
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +29,7 @@ class Config:
         sae_dtype: str = "float32",
         secret: str | None = None,
         port: int = 5000,
-        token_limit: int = 100,
+        token_limit: int = 10000,
         saes_path: str | None = None,
         valid_completion_types: list[str] = ["default", "steered"],
         num_layers: int | None = None,

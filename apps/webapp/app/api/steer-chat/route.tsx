@@ -10,15 +10,12 @@ import { DEMO_MODE, NEXT_PUBLIC_URL } from '@/lib/env';
 import { steerCompletionChat } from '@/lib/utils/inference';
 import {
   ChatMessage,
-  STEER_MAX_PROMPT_CHARS,
   STEER_METHOD,
-  STEER_N_COMPLETION_TOKENS_MAX,
-  STEER_N_COMPLETION_TOKENS_MAX_THINKING,
   STEER_STRENGTH_MAX,
   STEER_STRENGTH_MIN,
   STEER_STRENGTH_MULTIPLIER_MAX,
   STEER_TEMPERATURE_MAX,
-  SteerFeature,
+  SteerFeature
 } from '@/lib/utils/steer';
 import { AuthenticatedUser, RequestOptionalUser, withOptionalUser } from '@/lib/with-user';
 import { SteerOutputToNeuronWithPartialRelations } from '@/prisma/generated/zod';
@@ -579,9 +576,9 @@ export const POST = withOptionalUser(async (request: RequestOptionalUser) => {
     const totalSteeredChars = body.steeredChatMessages.reduce((sum, message) => sum + message.content.length, 0);
 
     // Check if total length exceeds the maximum allowed
-    if (totalDefaultChars > STEER_MAX_PROMPT_CHARS || totalSteeredChars > STEER_MAX_PROMPT_CHARS) {
-      return NextResponse.json({ message: 'Total chat message length exceeds the maximum allowed' }, { status: 400 });
-    }
+    // if (totalDefaultChars > STEER_MAX_PROMPT_CHARS || totalSteeredChars > STEER_MAX_PROMPT_CHARS) {
+    //   return NextResponse.json({ message: 'Total chat message length exceeds the maximum allowed' }, { status: 400 });
+    // }
 
     // check access
     // model access
@@ -590,19 +587,19 @@ export const POST = withOptionalUser(async (request: RequestOptionalUser) => {
       return NextResponse.json({ message: 'Model Not Found' }, { status: 404 });
     }
     // max completion tokens based on thinking or not
-    if (modelAccess.thinking) {
-      if (body.n_tokens > STEER_N_COMPLETION_TOKENS_MAX_THINKING) {
-        return NextResponse.json(
-          { message: `For thinking models the max n_tokens is ${STEER_N_COMPLETION_TOKENS_MAX_THINKING}` },
-          { status: 400 },
-        );
-      }
-    } else if (body.n_tokens > STEER_N_COMPLETION_TOKENS_MAX) {
-      return NextResponse.json(
-        { message: `The max n_tokens for non-thinking models is ${STEER_N_COMPLETION_TOKENS_MAX}` },
-        { status: 400 },
-      );
-    }
+    // if (modelAccess.thinking) {
+    //   if (body.n_tokens > STEER_N_COMPLETION_TOKENS_MAX_THINKING) {
+    //     return NextResponse.json(
+    //       { message: `For thinking models the max n_tokens is ${STEER_N_COMPLETION_TOKENS_MAX_THINKING}` },
+    //       { status: 400 },
+    //     );
+    //   }
+    // } else if (body.n_tokens > STEER_N_COMPLETION_TOKENS_MAX) {
+    //   return NextResponse.json(
+    //     { message: `The max n_tokens for non-thinking models is ${STEER_N_COMPLETION_TOKENS_MAX}` },
+    //     { status: 400 },
+    //   );
+    // }
     // each feature access
     const featuresWithVectors: SteerFeature[] = [];
     // eslint-disable-next-line no-restricted-syntax

@@ -89,10 +89,7 @@ webapp-localhost-install: ## Webapp: Localhost Environment - Install Dependencie
 	
 webapp-localhost-dev: ## Webapp: Localhost Environment - Run (Development Build)
 	@echo "Bringing up the webapp for development and connecting to the localhost database..."
-	@if ! command -v docker &> /dev/null; then \
-		echo "Error: Docker is not installed. Please install Docker first."; \
-		exit 1; \
-	fi
+
 	ENV_FILE=.env.localhost docker compose \
 		-f docker-compose.yaml \
 		-f docker-compose.webapp.dev.yaml \
