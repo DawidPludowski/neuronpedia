@@ -55,7 +55,7 @@ class Config:
         self.NUM_LAYERS = num_layers
         self.DEVICE = device
         self.SAE_SETS = sae_sets
-        self.include_sae_patterns = include_sae
+        self.include_sae_patterns = ['0-.*']
         self.exclude_sae_patterns = exclude_sae
         self.SAE_CONFIG = self._filter_sae_config(self._generate_sae_config())
         self.MODEL_KWARGS = json.loads(model_from_pretrained_kwargs)

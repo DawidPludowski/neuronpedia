@@ -815,16 +815,16 @@ CREATE UNIQUE INDEX "SavedSearchActivation_savedSearchId_activationId_key" ON "S
 CREATE INDEX "SteerOutputToNeuron_modelId_layer_index_idx" ON "SteerOutputToNeuron"("modelId", "layer", "index");
 
 -- CreateIndex
-CREATE INDEX "steerIndex" ON "SteerOutput"("modelId", "type", "inputText", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
+-- CREATE INDEX "steerIndex" ON "SteerOutput"("modelId", "type", "inputText", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
 
 -- CreateIndex
-CREATE INDEX "steerIndex2" ON "SteerOutput"("modelId", "type", "inputTextChatTemplate", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
+-- CREATE INDEX "steerIndex2" ON "SteerOutput"("modelId", "type", "inputTextChatTemplate", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
 
 -- CreateIndex
-CREATE INDEX "steerIndexWithoutType" ON "SteerOutput"("modelId", "inputText", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
+-- CREATE INDEX "steerIndexWithoutType" ON "SteerOutput"("modelId", "inputText", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
 
 -- CreateIndex
-CREATE INDEX "steerIndexWithoutType2" ON "SteerOutput"("modelId", "inputTextChatTemplate", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
+-- CREATE INDEX "steerIndexWithoutType2" ON "SteerOutput"("modelId", "inputTextChatTemplate", "temperature", "numTokens", "freqPenalty", "seed", "strengthMultiplier", "version", "steerSpecialTokens");
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

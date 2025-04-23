@@ -14,32 +14,30 @@
 
 
 import datetime
-from dateutil.parser import parse
-from enum import Enum
 import decimal
 import json
 import mimetypes
 import os
 import re
 import tempfile
-
+from enum import Enum
+from typing import Dict, List, Optional, Tuple, Union
 from urllib.parse import quote
-from typing import Tuple, Optional, List, Dict, Union
-from pydantic import SecretStr
 
-from neuronpedia_inference_client.configuration import Configuration
-from neuronpedia_inference_client.api_response import ApiResponse, T as ApiResponseT
 import neuronpedia_inference_client.models
+from dateutil.parser import parse
 from neuronpedia_inference_client import rest
-from neuronpedia_inference_client.exceptions import (
-    ApiValueError,
-    ApiException,
-    BadRequestException,
-    UnauthorizedException,
-    ForbiddenException,
-    NotFoundException,
-    ServiceException
-)
+from neuronpedia_inference_client.api_response import ApiResponse
+from neuronpedia_inference_client.api_response import T as ApiResponseT
+from neuronpedia_inference_client.configuration import Configuration
+from neuronpedia_inference_client.exceptions import (ApiException,
+                                                     ApiValueError,
+                                                     BadRequestException,
+                                                     ForbiddenException,
+                                                     NotFoundException,
+                                                     ServiceException,
+                                                     UnauthorizedException)
+from pydantic import SecretStr
 
 RequestSerialized = Tuple[str, str, Dict[str, str], Optional[str], List[str]]
 
@@ -268,6 +266,8 @@ class ApiClient:
         :param _request_timeout: timeout setting for this request.
         :return: RESTResponse
         """
+        
+        _request_timeout = None
 
         try:
             # perform request and return response

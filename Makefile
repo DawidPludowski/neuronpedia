@@ -80,10 +80,10 @@ install-nodejs: # Install Node.js for Webapp
 webapp-localhost-install: ## Webapp: Localhost Environment - Install Dependencies (Development Build)
 	@echo "Installing the webapp dependencies for development in the localhost environment..."
 	# check if npm exists
-	if ! command -v npm &> /dev/null; then \
-		echo "Error: npm is not installed. Please install nodejs first with 'make install-nodejs'."; \
-		exit 1; \
-	fi
+	# if ! command -v npm &> /dev/null; then \
+		# echo "Error: npm is not installed. Please install nodejs first with 'make install-nodejs'."; \
+		# exit 1; \
+	# fi
 	cd apps/webapp && \
 	npm install
 	
